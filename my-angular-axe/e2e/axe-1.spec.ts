@@ -55,43 +55,6 @@ test.describe('[passing examples] index.html', () => {
 
         expect(accessibilityScanResults.violations).toEqual([]);
     });
-
-    // If you want to more precisely baseline a particular set of known issues, you can extract a "fingerprint"
-    // for each issue and test whether the set of fingerprints found matches the set you already know about.
-    test('accessibility of page should match snapshot', async ({ browserName, page }) => {
-        const accessibilityScanResults = await new AxeBuilder({ page })
-            .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
-            .analyze();
-
-        await exportAxeAsSarifTestResult('index-page.sarif', accessibilityScanResults, browserName);
-
-        // We recommend pinning your known failure cases using fingerprints, rather than pinning the entire
-        // contents of the violation objects. Violation objects include contextual information like "a snippet
-        // of the HTML containing the violation", so snapshotting entire violation objects is prone to failing
-        // when unrelated changes are made to the element (or even to unrelated ancestors of the element in
-        // the DOM).
-        //
-        // This technique will have the side effect of test failures only showing the fingerprint, rather than
-        // the entire violation, when an unexpected failure occurs. You can still use the exported .sarif files
-        // to see complete failure information in a SARIF viewer (https://sarifweb.azurewebsites.net/#Viewers)
-        // or a text editor.
-        const violationFingerprints = accessibilityScanResults.violations.map(getViolationFingerprint);
-        
-        expect(violationFingerprints).toEqual([
-            {
-                "rule": "aria-roles",
-                "targets": [[ "span[role=\"invalid\"]" ]],
-            },
-            {
-                "rule": "color-contrast",
-                "targets": [[ "li:nth-child(2) > span" ]],
-            },
-            {
-                "rule": "label",
-                "targets": [[ "input" ]]
-            }
-        ]);
-    });
 });
 
 // You can make your "fingerprint" function as specific as you like. This one considers a violation to be
