@@ -3,7 +3,6 @@
 import { test, expect } from '@playwright/test';
 import * as Axe from 'axe-core';
 import AxeBuilder from '@axe-core/playwright';
-import * as path from 'path';
 import { exportAxeAsSarifTestResult } from './export-to-sarif';
 
 test.describe('[passing examples] index.html', () => {
@@ -15,7 +14,7 @@ test.describe('[passing examples] index.html', () => {
         //
         // Some common node.js libraries for hosting this sort of localhost http server include Express.js,
         // http-server, and Koa.
-        const pageUnderTest = 'file://' + path.join(__dirname, '..', 'src', 'index.html');
+        const pageUnderTest = 'localhost:4200';
         await page.goto(pageUnderTest);
 
         // Checking for a known element on the page in beforeEach serves two purposes:
