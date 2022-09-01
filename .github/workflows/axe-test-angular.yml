@@ -1,0 +1,21 @@
+name: Axe test angular application
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: yarn and test
+      run: |
+        yarn
+        npm run playwright test --code-coverage=true --watch=false
+      env:
+        CI: true
+      working-directory: my-angular-axe

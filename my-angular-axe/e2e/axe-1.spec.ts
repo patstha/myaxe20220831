@@ -14,7 +14,7 @@ test.describe('[passing examples] index.html', () => {
         //
         // Some common node.js libraries for hosting this sort of localhost http server include Express.js,
         // http-server, and Koa.
-        const pageUnderTest = 'localhost:4200';
+        const pageUnderTest = '/';
         await page.goto(pageUnderTest);
 
         // Checking for a known element on the page in beforeEach serves two purposes:
