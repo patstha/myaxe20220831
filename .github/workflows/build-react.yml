@@ -1,9 +1,9 @@
-name: Axe test angular application
+name: Build react application
 
 on: [push, pull_request]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -12,10 +12,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: yarn and test
+    - name: yarn and build
       run: |
         yarn
-        npm run playwright
+        npm run build 
       env:
         CI: true
-      working-directory: my-angular-axe
+      working-directory: my-react-axe
